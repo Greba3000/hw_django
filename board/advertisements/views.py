@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
+from advertisements.models import Advertisement
 from django.http import HttpResponse
+
+
+def advertisement_list():
+    advert_list = Advertisement.objects.all()
+    return advert_list
 
 
 class MainPage(TemplateView):
@@ -31,7 +37,13 @@ class About(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'О нас'
         context['name'] = 'Бесплатные объявления'
-        context['description'] = 'Бесплатные объявления в вашем городе!'
+        context['description'] = '''
+        Бесплатные объявления в вашем городе!0
+        
+        Бесплатные объявления в вашем городе!1
+        Бесплатные объявления в вашем городе!2
+        Бесплатные объявления в вашем городе!3
+        '''
         return context
 
 
@@ -47,25 +59,11 @@ class Contacts(TemplateView):
         return context
 
 
-class Advertisements(View):
-    advertisements = [
-        'куплю кота',
-        'продам слона',
-        'утюжу',
-        'глажу',
-        'муж на час',
-        'на два',
-        'на три',
-    ]
-    title = 'Объявления'
-    request_counter = 0
+class AdvertisementListView(ListView):
+    model = Advertisement
+    template_name = 'advertisement_list.html'
+    context_object_name = 'advertisements_list'
 
-    def get(self, request):
-        return render(request, 'advertisements/advertisements.html',
-                      {'title': Advertisements.title, 'advertisements': Advertisements.advertisements})
 
-    def post(self, request):
-        Advertisements.request_counter += 1
-        message = 'Запрос на создание новой записи успешно выполнен.'
-        return render(request, 'advertisements/advertisements.html',
-                      {'request_counter': Advertisements.request_counter, 'message': message})
+class AdvertisementDetailView(DetailView):
+    model = Advertisement
