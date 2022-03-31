@@ -10,7 +10,7 @@
     {% if news_list %}
     <ul>
         {% for i in news_list %}
-            {% if i.flag == False %}
+            {% if i.flag == True %}
             <li>
                 <a href="/news/{{ i.id }}">{{ i.title }}</a>
                 <p>Дата: {{ i.created_at }}</p>
