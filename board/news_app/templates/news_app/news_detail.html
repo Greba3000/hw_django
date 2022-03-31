@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+    <h1>{{ news.title }}</h1>
+    <p>Описание новости: {{ news.description }}</p>
+    <p>Автор: {{ news.author }}</p>
+    <p>Дата создания: {{ news.created_at }}</p>
+    <p>Дата редактирования: {{ news.updated_at }}</p>
+    <form action="/news/{{ news.id }}/edit">
+        <button>Редактировать новость</button>
+    </form>
+    <hr>
+    {% if comments %}
+    <ul>
+        {% for i in comments %}
+            <li>
+                <p>Автор: {{i.author}}</p>
+                <p>Сообщение: {{ i.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+        <p>Комментариев нет! Стань первым</p>
+    {% endif %}
+    <hr>
+    <form action="leave_comment/" method="POST">  <!-- action="/news/{{ object.id }}/add_comment" -->
+        {% csrf_token %}
+        <input type="text" required placeholder="Ваше имя" name="author"><br>
+        <textarea name="text" required placeholder="Текст коммента" cols="=30" rows="10"></textarea><br>
+        <button type="submit">Добавить комментарий</button>
+    </form>
+</body>
+</html>

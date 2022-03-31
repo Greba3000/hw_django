@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddNews</title>
+</head>
+<body>
+    <h2>Добавление новой новости</h2>
+    <form method="post" action="">  <!-- нормально ли перенаправление после сохранения новости прописывать в экшен-->
+        {% csrf_token %}
+        {{ add_news.as_p }}
+        <button type="submit">Сохранить новость</button>
+    </form>
+</body>
+</html>
