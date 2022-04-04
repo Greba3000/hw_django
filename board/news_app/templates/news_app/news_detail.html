@@ -30,9 +30,15 @@
     <hr>
     <form action="leave_comment/" method="POST">  <!-- action="/news/{{ object.id }}/add_comment" -->
         {% csrf_token %}
-        <input type="text" required placeholder="Ваше имя" name="author"><br>
-        <textarea name="text" required placeholder="Текст коммента" cols="=30" rows="10"></textarea><br>
-        <button type="submit">Добавить комментарий</button>
+        {% if request.user.is_authenticated %}
+            <input type="text" value='{{ request.user }}' name="author" hidden><br>
+            <textarea name="text" required placeholder="Текст коммента" cols="=30" rows="10"></textarea><br>
+            <button type="submit">Добавить комментарий</button>
+        {% else %}
+            <input type="text" required placeholder="Ваше имя" name="author"><br>
+            <textarea name="text" required placeholder="Текст коммента" cols="=30" rows="10"></textarea><br>
+            <button type="submit">Добавить комментарий</button>
+        {% endif %}
     </form>
 </body>
 </html>

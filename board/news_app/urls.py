@@ -1,6 +1,7 @@
 from django.urls import path
 from news_app.views import *
 
+
 urlpatterns = [
     path('news/', NewsListView.as_view(), name='news_list'),
     path('news/<int:profile_id>/', NewsDetailView.as_view(), name='news_detail'),  # откуда прилетает значение в pk?

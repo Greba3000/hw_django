@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class News(models.Model):
@@ -24,6 +25,7 @@ class Comment(models.Model):
     news = models.ForeignKey('News', default=None, null=True, on_delete=models.CASCADE,
                              related_name='comment',
                              verbose_name='Новость')  # related new change comment_set for comment
+    user = models.ForeignKey('auth.User', default=None, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.author

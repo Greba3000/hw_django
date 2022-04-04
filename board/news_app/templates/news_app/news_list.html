@@ -5,8 +5,15 @@
     <title>{{ title }}</title>
 </head>
 <body>
+    <dev>
+        {% if request.user.is_authenticated %}
+            <p>Добро пожаловать на сайт {{ request.user.username }}</p>
+        {% else %}
+            <p>Вы неавторизованны.</p>
+            <a href="{% url 'login'%}">Войти</a>
+        {% endif %}
+    </dev>
     <h1>Новости</h1>
-
     {% if news_list %}
     <ul>
         {% for i in news_list %}
